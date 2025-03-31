@@ -1,54 +1,32 @@
----
-interface Props {
-	title: string;
-	tagline?: string;
-	align?: 'start' | 'center';
-}
-
-const { align = 'center', tagline, title } = Astro.props;
----
-
-<div class:list={['hero stack gap-4', align]}>
-	<div class="stack gap-2">
-		<h1 class="title">{title}</h1>
-		{tagline && <p class="tagline">{tagline}</p>}
-	</div>
-	<slot />
-</div>
-
-<style>
-	.hero {
-		font-size: var(--text-lg);
-		text-align: center;
-	}
-
-	.title,
-	.tagline {
-		max-width: 37ch;
-		margin-inline: auto;
-	}
-
-	.title {
-		font-size: var(--text-3xl);
-		color: var(--gray-0);
-	}
-
-	@media (min-width: 50em) {
-		.hero {
-			font-size: var(--text-xl);
-		}
-
-		.start {
-			text-align: start;
-		}
-
-		.start .title,
-		.start .tagline {
-			margin-inline: unset;
-		}
-
-		.title {
-			font-size: var(--text-5xl);
-		}
-	}
-</style>
+<section class="relative bg-gradient-to-r from-blue-50 to-blue-100 py-20">
+  <div class="container mx-auto px-4">
+    <div class="max-w-4xl mx-auto">
+      <div class="grid md:grid-cols-2 gap-8 items-center">
+        <div class="text-center md:text-left">
+          <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
+            Psicoterapia Magdalena Montiel
+          </h1>
+          <p class="text-xl text-gray-600 mb-8">
+            Licenciatura en Psicología en Educación, con Especialidad en Terapia Familiar Sistémica, Gerontología y Tanatología.
+          </p>
+          <div class="flex flex-col md:flex-row gap-4 justify-center md:justify-start">
+            <a href="#contact" class="bg-primary text-white px-8 py-3 rounded-full font-medium hover:bg-blue-600 transition text-center">
+              Agenda tu Consulta
+            </a>
+            <a href="#services" class="bg-white text-primary px-8 py-3 rounded-full font-medium hover:bg-gray-50 transition border border-primary text-center">
+              Nuestros Servicios
+            </a>
+          </div>
+          <p class="mt-6 text-gray-600">Terapia Presencial en Pachuca y Online</p>
+        </div>
+        <div class="flex justify-center">
+          <img 
+            src="/magdalena.jpg" 
+            alt="Psic. Magdalena Montiel" 
+            class="rounded-lg shadow-xl max-w-sm"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
