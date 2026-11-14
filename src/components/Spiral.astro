@@ -1,0 +1,66 @@
+---
+// The spiral from Magdalena's brand graphic, drawn as an Archimedean spiral.
+interface Props {
+  animate?: boolean;
+  strokeWidth?: number;
+  class?: string;
+}
+
+const { animate = false, strokeWidth = 7, class: className = '' } = Astro.props;
+
+const size = 200;
+const center = size / 2;
+const turns = 3.15;
+const outer = center - strokeWidth;
+const steps = 260;
+const maxTheta = turns * Math.PI * 2;
+const startTheta = Math.PI * 0.9; // leave the small open tail at the centre, like the original
+
+const points: string[] = [];
+for (let i = 0; i <= steps; i++) {
+  const theta = startTheta + (maxTheta - startTheta) * (i / steps);
+  const r = (outer * theta) / maxTheta;
+  const x = center + r * Math.cos(theta);
+  const y = center + r * Math.sin(theta);
+  points.push(`${x.toFixed(2)},${y.toFixed(2)}`);
+}
+const d = `M${points.join(' L')}`;
+---
+
+<svg
+  viewBox={`0 0 ${size} ${size}`}
+  class:list={['spiral', { 'spiral--animate': animate }, className]}
+  aria-hidden="true"
+  focusable="false"
+>
+  <path
+    d={d}
+    pathLength="1"
+    fill="none"
+    stroke="currentColor"
+    stroke-width={strokeWidth}
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>
+
+<style>
+  .spiral--animate path {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: draw 1.6s cubic-bezier(0.55, 0.1, 0.25, 1) 0.2s forwards;
+  }
+
+  @keyframes draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .spiral--animate path {
+      animation: none;
+      stroke-dashoffset: 0;
+    }
+  }
+</style>

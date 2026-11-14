@@ -3,34 +3,54 @@ import '../styles/global.css';
 
 interface Props {
   title?: string;
+  description?: string;
 }
 
-const { title = "Psicoterapia Magdalena Montiel" } = Astro.props;
+const {
+  title = 'Magdalena Montiel · Psicoterapeuta en Pachuca y en línea',
+  description = 'Psicoterapia individual, infantil, de pareja y familiar, y acompañamiento gerontológico con la Psic. Magdalena Montiel. Presencial en Pachuca, Hidalgo, y en línea. Primera asesoría gratuita.',
+} = Astro.props;
+
+const base = Astro.site ?? Astro.url;
+const ogImage = new URL('/terapia-checklist.jpg', base).href;
+const canonical = new URL(Astro.url.pathname, base).href;
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang="es-MX">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#4B2E6F" />
+    <meta name="generator" content={Astro.generator} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_MX" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content="Cómo saber si deberías asistir a terapia — Magdalena Montiel, psicoterapeuta" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
   </head>
-  <body class="font-[Poppins]">
-    <slot />
+  <body class="antialiased">
+    <a
+      href="#contenido"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-full focus:bg-ciruela focus:px-5 focus:py-3 focus:text-white"
+    >
+      Saltar al contenido
+    </a>
+    <slot name="header" />
+    <main id="contenido" tabindex="-1" class="outline-none">
+      <slot />
+    </main>
+    <slot name="footer" />
   </body>
 </html>
-
-<style>
-  html {
-    scroll-behavior: smooth;
-  }
-  
-  body {
-    margin: 0;
-    min-height: 100vh;
-    background-color: #f8fafc;
-  }
-</style>

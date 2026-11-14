@@ -1,0 +1,50 @@
+---
+import WhatsAppButton from './WhatsAppButton.astro';
+import Spiral from './Spiral.astro';
+import { contact, whatsappUrl, locationLine } from '../config/contact';
+
+const year = new Date().getFullYear();
+---
+
+<footer id="contacto" aria-labelledby="contacto-title" class="on-ciruela bg-ciruela pt-16 pb-28 text-white md:pt-24 md:pb-12">
+  <div class="wrap">
+    <div class="grid gap-12 md:grid-cols-[minmax(0,38rem)_1fr] md:gap-16">
+      <div>
+        <h2 id="contacto-title" class="max-w-[16ch]">Mereces un espacio para ti.</h2>
+        <p class="mt-5 text-lg text-white/90">
+          Un lugar para aprender a valorarte, cuidarte y conocerte mejor. Escríbeme y agendamos tu asesoría gratuita.
+        </p>
+        <WhatsAppButton size="lg" tone="claro" class="mt-8" id="footer-cta" />
+      </div>
+
+      <dl class="space-y-6 md:pt-3">
+        <div>
+          <dt class="text-sm text-white/75">Dónde</dt>
+          <dd class="mt-1">{locationLine}<br />También en línea, desde donde estés.</dd>
+        </div>
+        <div>
+          <dt class="text-sm text-white/75">WhatsApp</dt>
+          <dd class="mt-1">
+            <a
+              href={whatsappUrl()}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex min-h-11 items-center text-lg font-semibold underline decoration-agua decoration-2 underline-offset-4"
+            >
+              {contact.phoneDisplay}<span class="sr-only"> (abre WhatsApp en una pestaña nueva)</span>
+            </a>
+          </dd>
+        </div>
+        <div>
+          <dt class="text-sm text-white/75">Grupos de apoyo</dt>
+          <dd class="mt-1">{contact.groupsSchedule}</dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="mt-16 flex items-center gap-3 border-t border-white/15 pt-6 text-sm text-white/75">
+      <Spiral class="size-6 text-agua" strokeWidth={14} />
+      <p>© {year} Magdalena Montiel, psicoterapeuta</p>
+    </div>
+  </div>
+</footer>
