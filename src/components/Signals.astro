@@ -1,0 +1,51 @@
+---
+import WhatsAppButton from './WhatsAppButton.astro';
+
+// Same statements and colour order as Magdalena's "Cómo sé si debería asistir a terapia" graphic.
+const signals = [
+  { text: 'Dudas hasta de tus propias decisiones.', color: 'bg-agua', width: 'md:w-[78%]' },
+  { text: 'No encuentras motivación para hacer nada.', color: 'bg-agua', width: 'md:w-[86%]' },
+  { text: 'No sabes a quién recurrir para pedir ayuda.', color: 'bg-mantequilla', width: 'md:w-[72%]' },
+  { text: 'No te reconoces y te cuesta ver hacia dónde vas.', color: 'bg-durazno', width: 'md:w-[92%]' },
+  { text: 'Necesitas tener todo bajo control, y te agota.', color: 'bg-rosa', width: 'md:w-[82%]' },
+  { text: 'Sientes que has perdido la ilusión de todo.', color: 'bg-durazno', width: 'md:w-[76%]' },
+];
+---
+
+<section id="senales" aria-labelledby="senales-title" class="py-16 md:py-24">
+  <div class="wrap">
+    <h2 id="senales-title" class="max-w-[18ch]">¿Cómo saber si deberías ir a terapia?</h2>
+    <p class="measure mt-4 text-lg">Estas son algunas señales que escucho a menudo en consulta.</p>
+  </div>
+
+  <ul class="mt-10 flex flex-col gap-2.5 md:mt-14 md:gap-3" role="list">
+    {
+      signals.map((s) => (
+        <li
+          class:list={[
+            'band flex w-[calc(100%-1rem)] items-center gap-4 py-5 pr-6 pl-5 text-lg md:min-h-24 md:gap-6 md:pl-[max(2.5rem,calc((100vw-72rem)/2+2.5rem))] md:text-xl',
+            s.color,
+            s.width,
+          ]}
+        >
+          <svg class="size-9 shrink-0 text-white md:size-11" viewBox="0 0 48 48" fill="none" aria-hidden="true" focusable="false">
+            <circle cx="24" cy="24" r="20" stroke="currentColor" stroke-width="3.5" />
+            <path d="M15 24.5l6.5 6.5L34 16" stroke="currentColor" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <span class="max-w-[34ch]">{s.text}</span>
+        </li>
+      ))
+    }
+  </ul>
+
+  <div class="wrap mt-12 flex flex-col items-start gap-5 md:mt-16 md:flex-row md:items-center md:gap-8">
+    <p class="font-display text-xl md:text-2xl">Si te reconoces en alguna, hablemos.</p>
+    <WhatsAppButton />
+  </div>
+</section>
+
+<style>
+  .band {
+    border-radius: 0 0.5rem 0.5rem 0;
+  }
+</style>

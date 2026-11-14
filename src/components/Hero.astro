@@ -1,32 +1,60 @@
-<section class="relative bg-gradient-to-r from-blue-50 to-blue-100 py-20">
-  <div class="container mx-auto px-4">
-    <div class="max-w-4xl mx-auto">
-      <div class="grid md:grid-cols-2 gap-8 items-center">
-        <div class="text-center md:text-left">
-          <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
-            Psicoterapia Magdalena Montiel
-          </h1>
-          <p class="text-xl text-gray-600 mb-8">
-            Licenciatura en Psicología en Educación, con Especialidad en Terapia Familiar Sistémica, Gerontología y Tanatología.
-          </p>
-          <div class="flex flex-col md:flex-row gap-4 justify-center md:justify-start">
-            <a href="#contact" class="bg-primary text-white px-8 py-3 rounded-full font-medium hover:bg-blue-600 transition text-center">
-              Agenda tu Consulta
-            </a>
-            <a href="#services" class="bg-white text-primary px-8 py-3 rounded-full font-medium hover:bg-gray-50 transition border border-primary text-center">
-              Nuestros Servicios
-            </a>
-          </div>
-          <p class="mt-6 text-gray-600">Terapia Presencial en Pachuca y Online</p>
-        </div>
-        <div class="flex justify-center">
-          <img 
-            src="/magdalena.jpg" 
-            alt="Psic. Magdalena Montiel" 
-            class="rounded-lg shadow-xl max-w-sm"
-          />
-        </div>
+---
+import { Picture } from 'astro:assets';
+import portrait from '../assets/magdalena.jpg';
+import WhatsAppButton from './WhatsAppButton.astro';
+import Spiral from './Spiral.astro';
+import { contact } from '../config/contact';
+---
+
+<section id="inicio" aria-labelledby="hero-title" class="overflow-hidden">
+  <div class="wrap grid items-center gap-12 pt-10 pb-16 md:grid-cols-[1.15fr_1fr] md:gap-16 md:pt-20 md:pb-24">
+    <div>
+      <h1 id="hero-title" class="max-w-[17ch]">Un espacio para entenderte y cuidarte.</h1>
+
+      <p class="measure mt-6 text-lg md:text-xl">
+        Psicoterapia presencial en {contact.city.split(',')[0]} y en línea, para ti, tus hijos, tu pareja o tu familia.
+        La primera asesoría es gratuita.
+      </p>
+
+      <div class="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6">
+        <WhatsAppButton size="lg" id="hero-cta" />
+        <a
+          href="#servicios"
+          class="inline-flex min-h-11 items-center font-semibold underline decoration-agua decoration-2 underline-offset-[6px] hover:decoration-ciruela"
+        >
+          Ver servicios
+        </a>
+      </div>
+
+      <p class="measure mt-10 border-l-4 border-agua pl-4 text-base text-ciruela/85">
+        Licenciada en Psicología en Educación, con especialidad en Terapia Familiar Sistémica, Gerontología y
+        Tanatología.
+      </p>
+    </div>
+
+    <div class="relative mx-auto w-full max-w-[22rem] md:max-w-[26rem]">
+      <div class="portrait relative aspect-square overflow-hidden bg-agua">
+        <Picture
+          src={portrait}
+          formats={['avif', 'webp']}
+          widths={[360, 520, 658]}
+          sizes="(min-width: 768px) 26rem, 22rem"
+          alt="Magdalena Montiel, psicoterapeuta, sentada en su consultorio."
+          class="size-full object-cover object-[50%_15%]"
+          loading="eager"
+          fetchpriority="high"
+        />
+      </div>
+      <div class="absolute -right-4 -bottom-8 w-[46%] rounded-full bg-bruma p-3 md:-right-10 md:-bottom-10">
+        <Spiral animate strokeWidth={9} class="w-full text-agua" />
       </div>
     </div>
   </div>
 </section>
+
+<style>
+  /* Soft, slightly irregular frame — echoes the head silhouette of the brand graphic */
+  .portrait {
+    border-radius: 46% 54% 42% 58% / 52% 44% 56% 48%;
+  }
+</style>

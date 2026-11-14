@@ -1,0 +1,31 @@
+---
+const credentials = [
+  'Licenciatura en Psicología en Educación',
+  'Especialidad en Terapia Familiar Sistémica',
+  'Gerontología',
+  'Tanatología',
+];
+---
+
+<section id="como-trabajo" aria-labelledby="como-trabajo-title" class="py-16 md:py-24">
+  <div class="wrap grid gap-10 md:grid-cols-[minmax(0,38rem)_1fr] md:gap-16">
+    <div>
+      <h2 id="como-trabajo-title">Cómo trabajo</h2>
+      <p class="mt-6 text-lg">
+        Las sesiones se centran en el aquí y el ahora. Miramos de dónde viene lo que te pasa, pero ponemos el foco en tu
+        presente y en lo que puedes hacer hoy.
+      </p>
+      <p class="mt-4 text-lg">
+        Mi enfoque es integrador: no aplico una receta igual para todos. Adapto la terapia a ti, a tu historia y a lo que
+        necesitas para enfrentar tu día a día, cuidar tu autoestima, bajar el estrés y sentirte mejor.
+      </p>
+    </div>
+
+    <div class="md:pt-3">
+      <h3>Formación</h3>
+      <ul class="mt-4 space-y-3 border-l-4 border-agua pl-5" role="list">
+        {credentials.map((c) => <li>{c}</li>)}
+      </ul>
+    </div>
+  </div>
+</section>
