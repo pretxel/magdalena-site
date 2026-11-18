@@ -1,0 +1,116 @@
+---
+// schema.org graph for search engines and AI assistants.
+// Every value comes from src/config, the same source the visible page renders from.
+// Never add a street address, coordinates, hours, prices, ratings or reviews here
+// unless the same information is published in the page body.
+import { contact, whatsappUrl } from '../config/contact';
+import { credentials, faq, practice, services } from '../config/content';
+
+if (!Astro.site) throw new Error('`site` must be set in astro.config.mjs');
+
+const url = Astro.site.href;
+const id = (fragment: string) => `${url}#${fragment}`;
+const image = new URL('/og.jpg', Astro.site).href;
+const [locality, region] = contact.city.split(',').map((part) => part.trim());
+const telephone = `+${contact.phoneDigits}`;
+
+const graph = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': id('website'),
+      url,
+      name: practice.siteName,
+      description: practice.description,
+      inLanguage: 'es-MX',
+      publisher: { '@id': id('consultorio') },
+    },
+    {
+      '@type': 'ProfessionalService',
+      '@id': id('consultorio'),
+      name: `${practice.name}, psicoterapeuta`,
+      description: practice.summary,
+      url,
+      image,
+      telephone,
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: locality === 'Pachuca' ? 'Pachuca de Soto' : locality,
+        addressRegion: region,
+        addressCountry: 'MX',
+      },
+      areaServed: [
+        { '@type': 'City', name: 'Pachuca de Soto' },
+        { '@type': 'Country', name: 'México' },
+      ],
+      availableLanguage: 'es',
+      founder: { '@id': id('magdalena') },
+      contactPoint: {
+        '@type': 'ContactPoint',
+        contactType: 'Citas por WhatsApp',
+        telephone,
+        url: whatsappUrl(),
+        availableLanguage: 'es',
+      },
+      hasOfferCatalog: {
+        '@type': 'OfferCatalog',
+        name: 'Servicios de psicoterapia',
+        itemListElement: services.map((s) => ({
+          '@type': 'Offer',
+          itemOffered: {
+            '@type': 'Service',
+            name: `Psicoterapia para ${s.audience.toLowerCase()}`,
+            description: s.description,
+            provider: { '@id': id('consultorio') },
+          },
+        })),
+      },
+      makesOffer: {
+        '@type': 'Offer',
+        name: 'Primera asesoría gratuita',
+        price: 0,
+        priceCurrency: 'MXN',
+        itemOffered: { '@type': 'Service', name: 'Asesoría inicial de psicoterapia' },
+      },
+    },
+    {
+      '@type': 'Person',
+      '@id': id('magdalena'),
+      name: practice.name,
+      jobTitle: practice.jobTitle,
+      url,
+      image,
+      worksFor: { '@id': id('consultorio') },
+      knowsLanguage: 'es',
+      knowsAbout: [
+        'Psicoterapia',
+        'Terapia familiar sistémica',
+        'Terapia de pareja',
+        'Terapia de juego',
+        'Ansiedad',
+        'Autoestima',
+        'Gerontología',
+        'Tanatología',
+      ],
+      hasCredential: credentials.map((name) => ({ '@type': 'EducationalOccupationalCredential', name })),
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': id('preguntas'),
+      url,
+      inLanguage: 'es-MX',
+      mainEntity: faq.map((item) => ({
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: { '@type': 'Answer', text: item.answer },
+      })),
+    },
+  ],
+};
+
+// Escape "<" so no content string can close the script element.
+const json = JSON.stringify(graph).replace(/</g, '\\u003c');
+---
+
+<script type="application/ld+json" is:inline set:html={json} />
