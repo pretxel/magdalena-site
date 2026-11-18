@@ -2,5 +2,10 @@
 node_modules/
 dist/
 .astro/
-.claude/
-.codex/
+# Agent folders: share OpenSpec commands and skills, keep everything else local
+.claude/*
+!.claude/commands/
+!.claude/skills/
+.claude/settings.local.json
+.codex/*
+!.codex/skills/
