@@ -6,17 +6,21 @@ import Signals from '../components/Signals.astro';
 import Services from '../components/Services.astro';
 import Approach from '../components/Approach.astro';
 import FirstStep from '../components/FirstStep.astro';
+import Faq from '../components/Faq.astro';
+import StructuredData from '../components/StructuredData.astro';
 import Footer from '../components/Footer.astro';
 import StickyCta from '../components/StickyCta.astro';
 ---
 
 <Layout>
+  <StructuredData slot="head" />
   <Header slot="header" />
   <Hero />
   <Signals />
   <Services />
   <Approach />
   <FirstStep />
+  <Faq />
   <Fragment slot="footer">
     <Footer />
     <StickyCta />

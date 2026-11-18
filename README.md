@@ -1,32 +1,39 @@
 # magdalena-site
 
-## 🚀 Project Structure
+Sitio de una sola página de Magdalena Montiel, psicóloga y psicoterapeuta en Pachuca, Hidalgo.
+Astro 7 + Tailwind 4, salida 100 % estática.
 
-Inside of your Astro project, you'll see the following folders and files:
+Producción: <https://www.psicoterapeutamagdalenamontiel.com>
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+## Comandos
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+| Comando        | Acción                                      |
+| :------------- | :------------------------------------------ |
+| `pnpm install` | Instala dependencias                        |
+| `pnpm dev`     | Servidor local en `localhost:4321`          |
+| `pnpm build`   | Genera el sitio en `./dist/`                |
+| `pnpm preview` | Sirve el build local antes de publicar      |
 
-## 🧞 Commands
+## Dónde vive cada cosa
 
-All commands are run from the root of the project, from a terminal:
+| Qué                                                        | Dónde                                 |
+| :--------------------------------------------------------- | :------------------------------------ |
+| Dominio de producción (`site`)                             | `astro.config.mjs`                    |
+| Teléfono, mensaje de WhatsApp, zona, horario de grupos     | `src/config/contact.ts`               |
+| Título, descripción, servicios, formación, preguntas (FAQ) | `src/config/content.ts`               |
+| Metadatos, Open Graph, canonical                           | `src/layouts/Layout.astro`            |
+| Datos estructurados (JSON-LD)                              | `src/components/StructuredData.astro` |
+| `/robots.txt` y `/llms.txt`                                | `src/pages/*.txt.ts`                  |
+| Sitemap                                                    | `@astrojs/sitemap` (automático)       |
+| Imagen para compartir (1200×630)                           | `public/og.jpg`                       |
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm run dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm run build`           | Build your production site to `./dist/`          |
-| `pnpm run preview`         | Preview your build locally, before deploying     |
-| `pnpm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm run astro -- --help` | Get help using the Astro CLI                     |
+La página, el JSON-LD y `llms.txt` leen de `src/config/`. Para cambiar un dato, edítalo ahí y
+vuelve a generar el sitio: no hay copias en los componentes.
+
+## Reglas de contenido
+
+- No publicar dirección exacta: solo la zona y la ciudad.
+- No afirmar nada que Magdalena no haya confirmado (precio, duración de la sesión, horarios).
+- No agregar reseñas ni calificaciones a los datos estructurados.
+
+Las especificaciones y el historial de cambios están en `openspec/`.

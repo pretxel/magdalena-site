@@ -1,7 +1,6 @@
 ---
 import { contact } from '../config/contact';
-
-const groups = ['Educar con amor', 'Tanatorio', 'Envejecer con éxito'];
+import { groups, services } from '../config/content';
 ---
 
 <section id="servicios" aria-labelledby="servicios-title" class="bg-white py-16 md:py-24">
@@ -10,42 +9,27 @@ const groups = ['Educar con amor', 'Tanatorio', 'Envejecer con éxito'];
     <p class="measure mt-4 text-lg">Atiendo a cada persona según su etapa de vida y lo que está atravesando.</p>
 
     <dl class="mt-10 border-t-2 border-ciruela/15 md:mt-14">
-      <div class="row">
-        <dt>Adultos</dt>
-        <dd>
-          <p>Terapia individual para ansiedad, baja autoestima y ataques de pánico.</p>
-        </dd>
-      </div>
-
-      <div class="row">
-        <dt>Niños y adolescentes</dt>
-        <dd>
-          <p>
-            Atención a problemas emocionales, bajo rendimiento escolar o dificultades de conducta, con terapia de juego.
-          </p>
-        </dd>
-      </div>
-
-      <div class="row">
-        <dt>Pareja y familia</dt>
-        <dd>
-          <p>Terapia sistémica familiar para mejorar la comunicación y resolver conflictos.</p>
-        </dd>
-      </div>
-
-      <div class="row">
-        <dt>Adultos mayores</dt>
-        <dd>
-          <p>Acompañamiento gerontológico y tanatológico, y grupos de apoyo.</p>
-          <div class="mt-5 rounded-lg bg-mantequilla p-5 md:p-6">
-            <p class="font-display text-lg">Grupos de apoyo</p>
-            <p class="mt-1 font-semibold">{contact.groupsSchedule}</p>
-            <ul class="mt-3 flex flex-wrap gap-x-6 gap-y-1">
-              {groups.map((g) => <li>{g}</li>)}
-            </ul>
+      {
+        services.map((s) => (
+          <div class="row">
+            <dt>{s.audience}</dt>
+            <dd>
+              <p>{s.description}</p>
+              {'hasGroups' in s && (
+                <div class="mt-5 rounded-lg bg-mantequilla p-5 md:p-6">
+                  <p class="font-display text-lg">Grupos de apoyo</p>
+                  <p class="mt-1 font-semibold">{contact.groupsSchedule}</p>
+                  <ul class="mt-3 flex flex-wrap gap-x-6 gap-y-1">
+                    {groups.map((g) => (
+                      <li>{g}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </dd>
           </div>
-        </dd>
-      </div>
+        ))
+      }
     </dl>
   </div>
 </section>

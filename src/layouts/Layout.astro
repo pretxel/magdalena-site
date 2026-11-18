@@ -1,19 +1,20 @@
 ---
 import '../styles/global.css';
+import { practice } from '../config/content';
 
 interface Props {
   title?: string;
   description?: string;
 }
 
-const {
-  title = 'Magdalena Montiel · Psicoterapeuta en Pachuca y en línea',
-  description = 'Psicoterapia individual, infantil, de pareja y familiar, y acompañamiento gerontológico con la Psic. Magdalena Montiel. Presencial en Pachuca, Hidalgo, y en línea. Primera asesoría gratuita.',
-} = Astro.props;
+const { title = practice.title, description = practice.description } = Astro.props;
 
-const base = Astro.site ?? Astro.url;
-const ogImage = new URL('/terapia-checklist.jpg', base).href;
-const canonical = new URL(Astro.url.pathname, base).href;
+// No fallback to the request URL: without `site` the build would ship localhost URLs.
+if (!Astro.site) throw new Error('`site` must be set in astro.config.mjs');
+
+const ogImage = new URL('/og.jpg', Astro.site).href;
+const ogImageAlt = 'Magdalena Montiel, psicóloga y psicoterapeuta en Pachuca y en línea.';
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
 ---
 
 <!doctype html>
@@ -32,6 +33,7 @@ const canonical = new URL(Astro.url.pathname, base).href;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="theme-color" content="#4B2E6F" />
@@ -39,15 +41,20 @@ const canonical = new URL(Astro.url.pathname, base).href;
 
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="es_MX" />
+    <meta property="og:site_name" content={practice.siteName} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
-    <meta property="og:image:alt" content="Cómo saber si deberías asistir a terapia — Magdalena Montiel, psicoterapeuta" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={ogImageAlt} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={ogImageAlt} />
+    <slot name="head" />
   </head>
   <body class="antialiased">
     <!-- Google Tag Manager (noscript) -->
